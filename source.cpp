@@ -121,8 +121,8 @@ void student::calculateRent(float MRP)
     }
     cout<<"Thank You for renting with us!"<<endl;
     cout<<"Please take back your security deposit"<<endl;
-    cout<<"Your Total Due Amt for "<<numDays<<" is "<<amt<<"."<<endl;
-    cout<<"Please press ENTER to complete the transcation. We hope to see you soon.";
+    cout<<"Your Total Due Amt for "<<numDays<<" days is "<<amt<<"."<<endl;
+    cout<<"Please press ENTER to complete the transaction. We hope to see you soon.";
     getchar();
 }
 

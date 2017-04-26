@@ -47,10 +47,7 @@ void Trie::Add(cycle& object) {
 
 void Trie::Populate(vector<cycle>& Cycles) {
     for (size_t i=0; i<Cycles.size(); i++)
-    {
-        cout<<i;
         Add(Cycles.at(i));
-    }
 }
 
 void Trie::Find(string word,vector<cycle*>& searchList) {
