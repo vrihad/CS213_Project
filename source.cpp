@@ -3,6 +3,7 @@
 #include<string>
 #include<vector>
 #include<stdio.h>
+#include<algorithm>
 using namespace std;
 
 istream& operator>>(istream& is, cycle& en)                 //overloading of >> operator for reading objects of class cycle from a file
@@ -33,10 +34,9 @@ ostream& operator<<(ostream& os, const cycle& en)           //overloading of << 
 
 istream& operator>>(istream& is, vector<cycle>& en)
 {
-    int n;
-    is>>n;
+    is>>systemDate;
     cycle temp;
-    for (int i = 0; i < n; i++) {
+    while (!is.eof()) {
         is>>(temp);
         en.push_back(temp);
     }
@@ -45,7 +45,7 @@ istream& operator>>(istream& is, vector<cycle>& en)
 
 ostream& operator<<(ostream& os, const vector<cycle>& en)
 {
-    os<<en.size()<<"\n";
+    os<<systemDate<<"\n";
     size_t n=en.size();
     for (size_t it = 0; it < n; it++)
         os<<(en.at(it));
@@ -88,7 +88,7 @@ void student::calculateRent(float MRP)
     cout<<"Please take back your security deposit"<<endl;
     cout<<"Your Total Due Amt for "<<numDays<<" is "<<amt<<"."<<endl;
     cout<<"Please press ENTER to complete the transcation. We hope to see you soon.";
-    char c = getchar();
+    getchar();
 }
 
 // function to edit parameters of a cycle object
@@ -130,7 +130,7 @@ bool cycle::Issue(){
         IssuedTo.push_back(s);
         cout<<"Please pay  "<<MRP*0.5<<" as SECURITY Deposit"<<endl;
         cout<<"Thank You. Please Hit ENTER to complete the transaction";
-        char c =getchar();
+        getchar();
         return true;
     }
     else{
@@ -260,3 +260,6 @@ void Display(vector<cycle> vect) {
         it->Display();
     }
 }
+
+
+

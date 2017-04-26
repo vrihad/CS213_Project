@@ -13,6 +13,8 @@ using namespace std;
 #define ALPHABET_SIZE 26
 extern int systemDate;
 
+int code(char ch);
+
 class student {
     string RollNo;
     string Name;
@@ -24,7 +26,7 @@ class student {
     void getDetails();
     void calculateRent(float MRP);
     string returnRollNo() {return RollNo;};
-    };
+};
 
 class cycle {
   public:
@@ -45,15 +47,13 @@ class cycle {
     string getBrand();
     string getModel();
     friend cycle Create();
+    friend cycle* Search();
+    friend struct by_MRP;
 };
 
 cycle Create();
 void Display(vector<cycle>);
-
-istream& operator>>(istream& is, cycle& en);
-ostream& operator<<(ostream& os, const cycle& en);
-istream& operator>>(istream& is, vector<cycle>& vect);
-ostream& operator<<(ostream& os, const vector<cycle>& vect);
+cycle* Search();
 
 struct TrieNode {
     struct TrieNode *children[ALPHABET_SIZE];
@@ -76,6 +76,10 @@ class Trie {
     void Find(string,vector<cycle*>&);
 };
 
-int code(char ch);
+istream& operator>>(istream& is, cycle& en);
+ostream& operator<<(ostream& os, const cycle& en);
+istream& operator>>(istream& is, vector<cycle>& vect);
+ostream& operator<<(ostream& os, const vector<cycle>& vect);
+
 
 #endif // HEADER_H_INCLUDED
