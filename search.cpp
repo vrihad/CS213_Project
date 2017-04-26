@@ -10,7 +10,6 @@ int code(char ch) {
 };
 
 void Trie::Add(cycle& object) {
-    pair<string,string> Name;
     string brand = object.getBrand();
     string model = object.getModel();
     TrieNode* pt;
@@ -18,7 +17,8 @@ void Trie::Add(cycle& object) {
     pt = root;
     for (size_t i=0; i<brand.size(); i++) {
         int index = code(brand.at(i));
-        if ((pt->children)[index] == NULL) {
+        if ((pt->children)[index] == NULL)
+        {
             (pt->children)[index] = new TrieNode;
             ((pt->children)[index])->isLeaf = false;
             for(int j=0; j<ALPHABET_SIZE; j++)
@@ -32,7 +32,8 @@ void Trie::Add(cycle& object) {
     pt = root;
     for (size_t i=0; i<model.size(); i++) {
         int index = code(model.at(i));
-        if ((pt->children)[index] == NULL) {
+        if ((pt->children)[index] == NULL)
+        {
             (pt->children)[index] = new TrieNode;
             ((pt->children)[index])->isLeaf = false;
             for(int j=0; j<ALPHABET_SIZE; j++)
@@ -46,10 +47,14 @@ void Trie::Add(cycle& object) {
 
 void Trie::Populate(vector<cycle>& Cycles) {
     for (size_t i=0; i<Cycles.size(); i++)
+    {
+        cout<<i;
         Add(Cycles.at(i));
+    }
 }
 
 void Trie::Find(string word,vector<cycle*>& searchList) {
+    searchList.clear();
     TrieNode* pt;
     pt = root;
     string::iterator it;

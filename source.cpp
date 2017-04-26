@@ -4,7 +4,30 @@
 #include<vector>
 #include<stdio.h>
 #include<algorithm>
+#include<list>
 using namespace std;
+
+istream& operator>>(istream& is, student& en)                 //overloading of >> operator for reading objects of class cycle from a file
+{
+    is >> en.RollNo;
+    is >> en.Name;
+    is >> en.Hostel;
+    is >> en.Room;
+    is >> en.Phone;
+    is >> en.issueDate;
+    return is;
+}
+
+ostream& operator<<(ostream& os, const student& en)           //overloading of << operator for writing objects of class cycle into a file
+{
+    os << en.RollNo<<" ";
+    os << en.Name<<" ";
+    os << en.Hostel<<" ";
+    os << en.Room<<" ";
+    os << en.Phone<<" ";
+    os << en.issueDate<<"\n";
+    return os;
+}
 
 istream& operator>>(istream& is, cycle& en)                 //overloading of >> operator for reading objects of class cycle from a file
 {
@@ -16,19 +39,28 @@ istream& operator>>(istream& is, cycle& en)                 //overloading of >> 
     is >> en.Category;
     is >> en.Total;
     is >> en.Available;
+    int i =0;
+    student temp;
+    for(; i<en.Total-en.Available; i++) {
+        is>>temp;
+        (en.IssuedTo).push_back(temp);
+    }
     return is;
 }
 
 ostream& operator<<(ostream& os, const cycle& en)           //overloading of << operator for writing objects of class cycle into a file
 {
-    os << en.Brand<<"\t";
-    os << en.Model<<"\t";
-    os << en.MRP<<"\t";
-    os << en.Gear<<"\t";
-    os << en.Type<<"\t";
-    os << en.Category<<"\t";
-    os << en.Total<<"\t";
+    os << en.Brand<<" ";
+    os << en.Model<<" ";
+    os << en.MRP<<" ";
+    os << en.Gear<<" ";
+    os << en.Type<<" ";
+    os << en.Category<<" ";
+    os << en.Total<<" ";
     os << en.Available<<"\n";
+    int i =0;
+    for(list<student>::const_iterator it=(en.IssuedTo).begin(); it!=(en.IssuedTo).end() && i<en.Total-en.Available; it++,i++)
+        os<<(*it);
     return os;
 }
 
@@ -36,9 +68,12 @@ istream& operator>>(istream& is, vector<cycle>& en)
 {
     is>>systemDate;
     cycle temp;
-    while (!is.eof()) {
+    while (1) {
         is>>(temp);
-        en.push_back(temp);
+        if (!is.eof())
+            en.push_back(temp);
+        else
+            break;
     }
     return is;
 }

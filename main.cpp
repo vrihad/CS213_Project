@@ -79,31 +79,31 @@ cycle* Search() {
                         select.erase(it);
                 break;
         case 4: for(vector<cycle*>::iterator it=select.begin(); it<select.end(); ++it)
-                    if((*it)->Category == 1)
+                    if((*it)->Category != 1)
                         select.erase(it);
                 break;
         case 5: for(vector<cycle*>::iterator it=select.begin(); it<select.end(); ++it)
-                    if((*it)->Category == 2)
+                    if((*it)->Category != 2)
                         select.erase(it);
                 break;
         case 6: for(vector<cycle*>::iterator it=select.begin(); it<select.end(); ++it)
-                    if((*it)->Category == 3)
+                    if((*it)->Category != 3)
                         select.erase(it);
                 break;
         case 7: for(vector<cycle*>::iterator it=select.begin(); it<select.end(); ++it)
-                    if((*it)->Type == 1)
+                    if((*it)->Type != 1)
                         select.erase(it);
                 break;
         case 8: for(vector<cycle*>::iterator it=select.begin(); it<select.end(); ++it)
-                    if((*it)->Type == 2)
+                    if((*it)->Type != 2)
                         select.erase(it);
                 break;
         case 9: for(vector<cycle*>::iterator it=select.begin(); it<select.end(); ++it)
-                    if((*it)->Type == 3)
+                    if((*it)->Type != 3)
                         select.erase(it);
                 break;
         case 10: for(vector<cycle*>::iterator it=select.begin(); it<select.end(); ++it)
-                    if((*it)->Type == 4)
+                    if((*it)->Type != 4)
                         select.erase(it);
                 break;
     }
@@ -112,7 +112,7 @@ cycle* Search() {
     selecting:
     cout<<"Enter the no. of cycle you want to select: ";
     cin>>t;
-    if (t>=0 && t<select.size())
+    if (t>0 && t<=select.size())
         return select.at(t-1);
     else
         return NULL;
@@ -128,11 +128,6 @@ int main()
 
     searchTrie.Populate(Cycles);
 
-/*    searchTrie.Find("Avon",searchList);
-    vector<cycle*>::iterator it;
-    for (it=searchList.begin(); it<searchList.end(); it++)
-        (*it)->Display();
-*/
     int choice;
     while(1)
     {

@@ -26,6 +26,8 @@ class student {
     void getDetails();
     void calculateRent(float MRP);
     string returnRollNo() {return RollNo;};
+    friend istream& operator>>(istream& is, student& en);
+    friend ostream& operator<<(ostream& os, const student& en);
 };
 
 class cycle {
@@ -49,6 +51,8 @@ class cycle {
     friend cycle Create();
     friend cycle* Search();
     friend struct by_MRP;
+    friend istream& operator>>(istream& is, cycle& en);
+    friend ostream& operator<<(ostream& os, const cycle& en);
 };
 
 cycle Create();
@@ -78,6 +82,8 @@ class Trie {
 
 istream& operator>>(istream& is, cycle& en);
 ostream& operator<<(ostream& os, const cycle& en);
+istream& operator>>(istream& is, student& en);
+ostream& operator<<(ostream& os, const student& en);
 istream& operator>>(istream& is, vector<cycle>& vect);
 ostream& operator<<(ostream& os, const vector<cycle>& vect);
 
