@@ -32,13 +32,17 @@ void Trie::Add(cycle& object) {
     for (size_t i=0; i<model.size(); i++) {
         int index = code(model.at(i));
         if ((pt->children)[index] == NULL) {
+    cout<<"done";
             (pt->children)[index] = new TrieNode;
             ((pt->children)[index])->isLeaf = false;
+            for(int i=0; i<ALPHABET_SIZE; i++)
+                (((pt->children)[index])->children)[i] = NULL;
         }
         pt = (pt->children)[index];
     }
     pt->isLeaf = true;
     (pt->List).push_back(&object);
+    cout<<"done";
 }
 
 void Trie::Populate(vector<cycle>& Cycles) {
