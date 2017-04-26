@@ -1,29 +1,52 @@
 #include"header.h"
-#define ALPHABET_SIZE 26
 
 int code(char ch) {
-    return int(ch);
+    if(ch>='A' && ch<='Z')
+        return int(ch-'A');
+    else if(ch>='a' && ch<='z')
+        return int(ch-'a');
+    else
+        return -1;
 };
 
-struct TrieNode {
-    struct TrieNode *children[ALPHABET_SIZE];
-    bool isLeaf;
-};
+void Trie::Add(cycle& object) {
+    pair<string,string> Name;
+    string brand = object.getBrand();
+    string model = object.getModel();
+    TrieNode* pt;
+    pt = root;
+    for (int i=0; i<brand.size(); i++) {
+        int index = code(brand.at(i));
+        if ((pt->children)[index] == NULL) {
+            (pt->children)[index] = new TrieNode;
+            ((pt->children)[index])->isLeaf = false;
+        }
+        pt = (pt->children)[index];
+        for(int i=0; i<ALPHABET_SIZE; i++)
+            (pt->children)[i] = NULL;
+    }
+    pt->isLeaf = true;
+    (pt->List).push_back(&object);
 
-class Trie {
-    TrieNode* root;
-    Trie() {
-        root = new TrieNode;
-        root->isLeaf = false;
+    pt = root;
+    for (int i=0; i<model.size(); i++) {
+        int index = code(model.at(i));
+        if ((pt->children)[index] == NULL) {
+            (pt->children)[index] = new TrieNode;
+            ((pt->children)[index])->isLeaf = false;
+        }
+        pt = (pt->children)[index];
+    }
+    pt->isLeaf = true;
+    (pt->List).push_back(&object);
+}
 
-    };
-    void Search(string);
-    bool Add(string);
-    bool Remove(string);
-    void Populate(vector<vector<cycle> >);
-};
+void Trie::Populate(vector<cycle>& Cycles) {
+    for (size_t i=0; i<Cycles.size(); i++)
+        Add(Cycles.at(i));
+}
 
-void Trie::Search(string word) {
+void Trie::Find(string word,vector<cycle*>& searchList) {
     TrieNode* pt;
     pt = root;
     string::iterator it;
@@ -37,8 +60,6 @@ void Trie::Search(string word) {
         else
             pt = (pt->children)[index];
     }
-}
-
-void Trie::Populate(vector<vector<cycle> > cycles) {
-    // will use add to populate trie by adding each string.
+    if (found && (pt->isLeaf)==true)
+        searchList.insert(searchList.end(),(pt->List).begin(),(pt->List).end());
 }

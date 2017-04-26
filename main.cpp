@@ -3,43 +3,61 @@
 #include<fstream>
 
 using namespace std;
+int systemDate = 0;
 
 int main()
 {
-    vector<vector<cycle> > database;
-    vector<cycle> brand;
-    cycle temp,kemp;
-    temp.Brand = "Hercules";
-    temp.Model = "Dynamite";
-    temp.Type = 2;
-    temp.Category = 1;
-    temp.Gear = false;
-    temp.MRP = 6000;
-    temp.Total = 10;
-    temp.Available = 10;
-    brand.push_back(temp);
-    temp.Brand = "Avon";
-    temp.Model = "Landmine";
-    temp.Type = 1;
-    temp.Category = 2;
-    temp.Gear = true;
-    temp.MRP = 6500;
-    temp.Total = 10;
-    temp.Available = 10;
-    brand.push_back(temp);
-    database.push_back(brand);
+    vector<cycle> Cycles;
+    vector<cycle*> searchList;
 
     fstream file;
-    file.open("Database.txt",ios::out);
-    file<<brand;
-    file.close();
-
-    brand.clear();
-
     file.open("Database.txt",ios::in);
-    file>>brand;
+    file>>Cycles;
     file.close();
 
-    Display(brand);
+//    Display(Cycles);
+    Trie searchTrie;
+    searchTrie.Populate(Cycles);
+
+    searchTrie.Find("Avon",searchList);
+    vector<cycle*>::iterator it;
+    for (it=searchList.begin(); it<searchList.end(); it++)
+        (*it)->Display();
+
+    int choice;
+    while(1)
+    {
+        cout<<"WELCOME TO IITB CYCLE RENTING PORTAL"<<endl;
+        cout<<"What would you like to do:"<<endl;
+        cout<<"1. Add a cycle \n";
+        cout<<"2. Edit a cycle \n";
+        cout<<"3. Remove a cycle \n";
+        cout<<"4. Rent a cycle \n";
+        cout<<"5. Return a cycle \n";
+        cout<<"6. Exit \n";
+        cin>>choice;
+        case (choice):
+        {
+            case 1:  cycle temp = Create();
+                     Cycles.push_back(temp);
+                    break;
+            case 2: //inert command for searching through trie
+                    break;
+            case 3: //inert command for searching through trie
+                    break;
+            case 4:
+                    break;
+            case 5:
+                    break;
+            case 6: systemDate++;
+                    file.open("Database.txt",ios::out);
+                    file<<Cycles;
+                    file.close();
+                    exit(0);
+                    break;
+
+        }
+    }
+
     return 0;
 }

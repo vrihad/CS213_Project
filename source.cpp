@@ -2,6 +2,7 @@
 #include<iostream>
 #include<string>
 #include<vector>
+#include<stdio.h>
 using namespace std;
 
 istream& operator>>(istream& is, cycle& en)                 //overloading of >> operator for reading objects of class cycle from a file
@@ -51,6 +52,45 @@ ostream& operator<<(ostream& os, const vector<cycle>& en)
     return os;
 }
 
+void student::getDetails()
+{
+    cout<<"Congratulations on selecting your cycle. Please enter the following Details:"<<endl;
+    cout<<"Roll No: ";
+    cin>>RollNo;
+    cout<<"Name: ";
+    cin>>Name;
+    cout<<"Hostel No: ";
+    cin>>Hostel;
+    cout<<"Room No: ";
+    cin>>Room;
+    cout<<"Phone No: ";
+    cin>>Phone;
+    issueDate = systemDate;
+}
+
+void student::calculateRent(float MRP)
+{
+    int numDays = systemDate - issueDate + 1;
+    float amt = 0;
+    if (numDays <= 5)
+    {
+        amt = MRP * 0.1;
+    }
+    else if (numDays <= 15)
+    {
+        amt = (MRP * 0.1) + ((numDays -5) * 0.01 * MRP);
+    }
+    else
+    {
+        amt = (MRP * 0.1) + (10 * 0.01 * MRP) + ((numDays-15) * 0.005 * MRP);
+    }
+    cout<<"Thank You for renting with us!"<<endl;
+    cout<<"Please take back your security deposit"<<endl;
+    cout<<"Your Total Due Amt for "<<numDays<<" is "<<amt<<"."<<endl;
+    cout<<"Please press ENTER to complete the transcation. We hope to see you soon.";
+    char c = getchar();
+}
+
 // function to edit parameters of a cycle object
 void cycle::Edit() {
     reedit:
@@ -79,26 +119,67 @@ void cycle::Edit() {
             cout<<"\nChoice entered in not valid please enter '1' or '2' only!";
             goto reedit;
     }
-};
+}
 
+// Function to Issue a cycle
 bool cycle::Issue(){
     if(Available>0) {
         Available--;
+        student s;
+        s.getDetails();
+        IssuedTo.push_back(s);
+        cout<<"Please pay  "<<MRP*0.5<<" as SECURITY Deposit"<<endl;
+        cout<<"Thank You. Please Hit ENTER to complete the transaction";
+        char c =getchar();
         return true;
     }
-    else
+    else{
+        student s;
+        s.getDetails();
+        Waitlist.push(s);
         return false;
+        }
 };
 
-bool cycle::Return() {
-    if (Available+1 > Total) {
+// Function to Return a cycle
+bool cycle::Return()
+{
+    if (Available+1 > Total)
         return false;
-    }
-    else {
-        Available++;
+    else
+    {
+        string roll_temp;
+        cout<<" Please enter your Roll No: ";
+        cin>> roll_temp;
+        int flag = 0;
+        for (list<student>::iterator it=IssuedTo.begin(); it!= IssuedTo.end(); ++it)
+        {
+            if((*it).returnRollNo() == roll_temp)
+            {
+                (*it).calculateRent(MRP);
+                IssuedTo.erase(it);
+                flag = 1;
+                Available++;
+                break;
+            }
+        }
+
+        if (!flag)
+        {
+            cout<<"Sorry, Invalid Info!";
+            return false;
+        }
+
+        if(!Waitlist.empty())
+        {
+        IssuedTo.push_back(Waitlist.front());
+        Waitlist.pop();
+        Available--;
+        cout<<"Waitlisted Customer issued cycle";
+        }
         return true;
     }
-};
+}
 
 // Function to display a cycle object on console
 void cycle::Display() {
@@ -137,11 +218,12 @@ void cycle::Display() {
     cout<<endl;
 }
 
-void Display(vector<cycle> vect) {
-    vector<cycle>::iterator it;
-    for ( it = vect.begin(); it < vect.end(); it++) {
-        it->Display();
-    }
+string cycle::getBrand() {
+    return Brand;
+}
+
+string cycle::getModel() {
+    return Model;
 }
 
 cycle Create() {
@@ -171,3 +253,10 @@ cycle Create() {
     temp.Available = temp.Total;
     return temp;
 };
+
+void Display(vector<cycle> vect) {
+    vector<cycle>::iterator it;
+    for ( it = vect.begin(); it < vect.end(); it++) {
+        it->Display();
+    }
+}
