@@ -14,16 +14,17 @@ void Trie::Add(cycle& object) {
     string brand = object.getBrand();
     string model = object.getModel();
     TrieNode* pt;
+
     pt = root;
     for (size_t i=0; i<brand.size(); i++) {
         int index = code(brand.at(i));
         if ((pt->children)[index] == NULL) {
             (pt->children)[index] = new TrieNode;
             ((pt->children)[index])->isLeaf = false;
+            for(int j=0; j<ALPHABET_SIZE; j++)
+                (((pt->children)[index])->children)[j] = NULL;
         }
         pt = (pt->children)[index];
-        for(int i=0; i<ALPHABET_SIZE; i++)
-            (pt->children)[i] = NULL;
     }
     pt->isLeaf = true;
     (pt->List).push_back(&object);
@@ -32,17 +33,15 @@ void Trie::Add(cycle& object) {
     for (size_t i=0; i<model.size(); i++) {
         int index = code(model.at(i));
         if ((pt->children)[index] == NULL) {
-    cout<<"done";
             (pt->children)[index] = new TrieNode;
             ((pt->children)[index])->isLeaf = false;
-            for(int i=0; i<ALPHABET_SIZE; i++)
-                (((pt->children)[index])->children)[i] = NULL;
+            for(int j=0; j<ALPHABET_SIZE; j++)
+                (((pt->children)[index])->children)[j] = NULL;
         }
         pt = (pt->children)[index];
     }
     pt->isLeaf = true;
     (pt->List).push_back(&object);
-    cout<<"done";
 }
 
 void Trie::Populate(vector<cycle>& Cycles) {
