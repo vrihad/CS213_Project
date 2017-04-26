@@ -47,6 +47,7 @@ class cycle {
     friend cycle Create();
 };
 
+cycle Create();
 void Display(vector<cycle>);
 
 istream& operator>>(istream& is, cycle& en);

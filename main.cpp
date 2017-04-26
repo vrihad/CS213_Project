@@ -36,10 +36,9 @@ int main()
         cout<<"5. Return a cycle \n";
         cout<<"6. Exit \n";
         cin>>choice;
-        case (choice):
+        switch (choice)
         {
-            case 1:  cycle temp = Create();
-                     Cycles.push_back(temp);
+            case 1: Cycles.push_back(Create());
                     break;
             case 2: //inert command for searching through trie
                     break;
@@ -53,11 +52,11 @@ int main()
                     file.open("Database.txt",ios::out);
                     file<<Cycles;
                     file.close();
-                    exit(0);
+                    goto TheEnd;
                     break;
 
         }
     }
-
+    TheEnd:
     return 0;
 }

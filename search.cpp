@@ -15,7 +15,7 @@ void Trie::Add(cycle& object) {
     string model = object.getModel();
     TrieNode* pt;
     pt = root;
-    for (int i=0; i<brand.size(); i++) {
+    for (size_t i=0; i<brand.size(); i++) {
         int index = code(brand.at(i));
         if ((pt->children)[index] == NULL) {
             (pt->children)[index] = new TrieNode;
@@ -29,7 +29,7 @@ void Trie::Add(cycle& object) {
     (pt->List).push_back(&object);
 
     pt = root;
-    for (int i=0; i<model.size(); i++) {
+    for (size_t i=0; i<model.size(); i++) {
         int index = code(model.at(i));
         if ((pt->children)[index] == NULL) {
             (pt->children)[index] = new TrieNode;
