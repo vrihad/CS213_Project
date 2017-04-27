@@ -28,7 +28,10 @@ cycle* Search() {
     choose:
     i=1;
     if(select.empty())
-        cout<<"0"<<endl;
+    {
+       cout<<"No Entries Found. Please Try again"<<endl;
+    	goto searching;
+    }	
     else
     {
         for(vector<cycle*>::iterator it=select.begin(); it<select.end(); ++it,++i)
@@ -41,6 +44,7 @@ cycle* Search() {
     cout<<"1. Search again"<<endl;
     cout<<"2. Apply Filter"<<endl;
     cout<<"3. Select"<<endl;
+    cout<<"4. Return to main menu"<<endl;
     cin>>choice;
     if(choice==1)
         goto searching;
@@ -48,7 +52,10 @@ cycle* Search() {
         goto filtering;
     else if(choice==3)
         goto selecting;
-    else {
+	else if(choice==4)
+    	return NULL;
+    else 
+    {
         cout<<"Invalid choice !"<<endl;
         goto choose;
     }
@@ -63,7 +70,7 @@ cycle* Search() {
     cout<<"Please choose a filter from below:"<<endl;
     cout<<"1. Price (Low to High)"<<endl;
     cout<<"2. Geared"<<"\t3. Non-Geared"<<endl;
-    cout<<"4. Male"<<"\t5. Female"<<"\t6. Kids"<<endl;
+    cout<<"4. Adult (Male)"<<"\t5. Adult (Female)"<<"\t6. Kids"<<endl;
     cout<<"7. Road Bicycle"<<"\t8. Racing Bicycle"<<"\t9. Mountain Bike"<<"\t10. BMX"<<endl;
     cin>>choice;
     switch(choice)
@@ -113,7 +120,17 @@ cycle* Search() {
     cout<<"Enter the no. of cycle you want to select: ";
     cin>>t;
     if (t>0 && t<=select.size())
+    {	
+    	char ch;
+    	cout<<" You have selected the following cycle: "<<endl;
+    	(select.at(t-1))->Display();
+    	cout<<"Please Confirm (Y/N): ";
+    	cin>>ch;
+    	if (ch == 'Y' or ch =='y')
         return select.at(t-1);
+    	else 
+    		return NULL;
+    }
     else
         return NULL;
 }
@@ -162,7 +179,7 @@ int main()
                     if(!searchList.empty())
                         for (vector<cycle>::iterator it = Cycles.begin(); it<Cycles.end(); it++)
                             if(it->Model == (searchList.front())->Model)
-                                //Cycles.erase(it);
+                            	Cycles.erase(it);
                     break;
             case 4: tempCycle=Search();
                     if(tempCycle != NULL)
