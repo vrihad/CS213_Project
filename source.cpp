@@ -5,6 +5,7 @@
 #include<stdio.h>
 #include<algorithm>
 #include<list>
+#include<queue>
 using namespace std;
 
 istream& operator>>(istream& is, student& en)                 //overloading of >> operator for reading objects of class cycle from a file
@@ -39,11 +40,22 @@ istream& operator>>(istream& is, cycle& en)                 //overloading of >> 
     is >> en.Category;
     is >> en.Total;
     is >> en.Available;
-    int i =0;
+    int i;
     student temp;
-    for(; i<en.Total-en.Available; i++) {
+    for(i=0; i<en.Total-en.Available; i++)
+    {
         is>>temp;
         (en.IssuedTo).push_back(temp);
+    }
+    if(en.Available == 0)
+    {
+        int t;
+        is >> t;
+        for(i=0; i<t; i++)
+        {
+            is>>temp;
+            (en.Waitlist).push(temp);
+        }
     }
     return is;
 }
@@ -60,7 +72,17 @@ ostream& operator<<(ostream& os, const cycle& en)           //overloading of << 
     os << en.Available<<"\n";
     int i =0;
     for(list<student>::const_iterator it=(en.IssuedTo).begin(); it!=(en.IssuedTo).end() && i<en.Total-en.Available; it++,i++)
-        os<<(*it);
+        os << (*it);
+    if(en.Available == 0)
+    {
+        os << en.Waitlist.size();
+        queue<student> Q = en.Waitlist;
+        while(!Q.empty())
+        {
+            os << Q.front();
+            Q.pop();
+        }
+    }
     return os;
 }
 

@@ -6,7 +6,7 @@ int code(char ch) {
     else if(ch>='a' && ch<='z')
         return int(ch-'a');
     else
-        return -1;
+        return 0;
 };
 
 void Trie::Add(cycle& object) {
