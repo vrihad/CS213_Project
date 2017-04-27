@@ -164,12 +164,12 @@ int main()
         switch (choice)
         {
             case 1: system("cmd /c cls");
-            		cout<<"ADD A CYCLE";
+            		cout<<"ADD A CYCLE"<<endl;
             		Cycles.push_back(Create());
            		    searchTrie.Populate(Cycles);
                     break;
             case 2: system("cmd /c cls");
-            		cout<<"EDIT A CYCLE";
+            		cout<<"EDIT A CYCLE"<<endl;
             		cout<<"Please enter the Model of the cycle you wish to Edit? ";
                     cin>>temp;
                     searchList.clear();
@@ -180,7 +180,7 @@ int main()
                         cout<<"Cycle not found !!!";
                     break;
             case 3: system("cmd /c cls");
-            		cout<<"DELETE A CYCLE";
+            		cout<<"DELETE A CYCLE"<<endl;
             		cout<<"Please enter the Model of the cycle you wish to Delete? ";
                     cin>>temp;
                     searchList.clear();
@@ -197,7 +197,7 @@ int main()
                         cout<<"You didn't choose any cycle!"<<endl;
                     break;
             case 5: system("cmd /c cls");
-            		cout<<"RETURN A CYCLE";
+            		cout<<"RETURN A CYCLE"<<endl;
             		cout<<"Please enter the Model of the cycle you wish to Return? ";
                     cin>>temp;
                     searchList.clear();
