@@ -2,7 +2,6 @@
 #include<iostream>
 #include<fstream>
 #include<algorithm>
-#include <windows.h>
 
 using namespace std;
 int systemDate;
