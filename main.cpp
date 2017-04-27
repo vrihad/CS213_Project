@@ -2,6 +2,7 @@
 #include<iostream>
 #include<fstream>
 #include<algorithm>
+#include <windows.h>
 
 using namespace std;
 int systemDate;
@@ -36,8 +37,9 @@ cycle* Search() {
     {
         for(vector<cycle*>::iterator it=select.begin(); it<select.end(); ++it,++i)
         {
-            cout<<i<<endl;
+            cout<<"Cycle No: "<<i;
             (*it)->Display();
+            cout<<endl;
         }
     }
     cout<<"What do you want to do?"<<endl;
@@ -119,6 +121,7 @@ cycle* Search() {
     selecting:
     cout<<"Enter the no. of cycle you want to select: ";
     cin>>t;
+	system("cmd /c cls");
     if (t>0 && t<=select.size())
     {	
     	char ch;
@@ -137,7 +140,7 @@ cycle* Search() {
 
 int main()
 {
-
+    system("cmd /c cls");
     fstream file;
     file.open("Database.txt",ios::in);
     file>>Cycles;
@@ -148,7 +151,7 @@ int main()
     int choice;
     while(1)
     {
-        cout<<"WELCOME TO IITB CYCLE RENTING PORTAL"<<endl;
+  		cout<<"WELCOME TO IITB CYCLE RENTING PORTAL"<<endl;
         cout<<"What would you like to do:"<<endl;
         cout<<"1. Add a cycle \n";
         cout<<"2. Edit a cycle \n";
@@ -161,9 +164,14 @@ int main()
         cin>>choice;
         switch (choice)
         {
-            case 1: Cycles.push_back(Create());
+            case 1: system("cmd /c cls");
+            		cout<<"ADD A CYCLE";
+            		Cycles.push_back(Create());
+           		    searchTrie.Populate(Cycles);
                     break;
-            case 2: cout<<"Please enter the Model of the cycle you wish to Edit? ";
+            case 2: system("cmd /c cls");
+            		cout<<"EDIT A CYCLE";
+            		cout<<"Please enter the Model of the cycle you wish to Edit? ";
                     cin>>temp;
                     searchList.clear();
                     searchTrie.Find(temp,searchList);
@@ -172,7 +180,9 @@ int main()
                     else
                         cout<<"Cycle not found !!!";
                     break;
-            case 3: cout<<"Please enter the Model of the cycle you wish to Delete? ";
+            case 3: system("cmd /c cls");
+            		cout<<"DELETE A CYCLE";
+            		cout<<"Please enter the Model of the cycle you wish to Delete? ";
                     cin>>temp;
                     searchList.clear();
                     searchTrie.Find(temp,searchList);
@@ -187,14 +197,17 @@ int main()
                     else
                         cout<<"You didn't choose any cycle!"<<endl;
                     break;
-            case 5: cout<<"Please enter the Model of the cycle you wish to Return? ";
+            case 5: system("cmd /c cls");
+            		cout<<"RETURN A CYCLE";
+            		cout<<"Please enter the Model of the cycle you wish to Return? ";
                     cin>>temp;
                     searchList.clear();
                     searchTrie.Find(temp,searchList);
                     if(!searchList.empty())
                         (searchList.front())->Return();
                     break;
-            case 6: systemDate++;
+            case 6:
+            		systemDate++;
                     file.open("Database.txt",ios::out);
                     file<<Cycles;
                     file.close();

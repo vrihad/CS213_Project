@@ -143,9 +143,7 @@ void student::calculateRent(float MRP)
     }
     cout<<"Thank You for renting with us!"<<endl;
     cout<<"Please take back your security deposit"<<endl;
-    cout<<"Your Total Due Amt for "<<numDays<<" days is "<<amt<<"."<<endl;
-    cout<<"Please press ENTER to complete the transaction. We hope to see you soon.";
-    getchar();
+    cout<<"Your Total Due Amt for "<<numDays<<" days is "<<amt<<"."<<endl<<endl;
 }
 
 // function to edit parameters of a cycle object
@@ -185,10 +183,7 @@ bool cycle::Issue(){
         student s;
         s.getDetails();
         IssuedTo.push_back(s);
-        cout<<"Please pay  "<<MRP*0.5<<" as SECURITY Deposit"<<endl;
-        cout<<"Thank You. Please Hit ENTER to complete the transaction";
-        getchar();
-        return true;
+        cout<<"Please pay  "<<MRP*0.5<<" as SECURITY Deposit"<<endl<<endl;
     }
     else{
         student s;
