@@ -1,4 +1,0 @@
-3
-Hercules	Dynamite	6000	0	2	1	10	10
-Avon	Landmine	6500	1	1	2	10	10
-BSA	Champ	2500	0	1	3	5	5
